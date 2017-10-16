@@ -6,6 +6,12 @@ Tensorflow Wheels
 
 ## 1. (Intel MKL-DNN 2018)
 
+| Interpreter | Optimization | OS          | Link                                                                                                                                                                           |   |
+|-------------|--------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
+| Python 2.7  | MKL 0.10     | High Sierra | [tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/raw/master/python2.7/tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl)  |   |
+| Python 3.6  | MKL 0.10     | High Sierra | [tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/blob/master/python3.6/tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl) |   |
+|             |              |             |                                                                                                                                                                                |   |
+
 Intel MKL-DNN includes functionality similar to [Intel(R) Math Kernel
 Library (Intel(R) MKL) 2017](https://software.intel.com/en-us/intel-mkl), but is not
 API compatible. We are investigating how to unify the APIs in future Intel MKL releases.
