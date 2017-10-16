@@ -1,5 +1,7 @@
 Tensorflow Wheels
 =================
+[![Apache License Version 2.0](https://img.shields.io/badge/license-Apache_2.0-green.svg)](LICENSE)
+![v0.10 beta](https://img.shields.io/badge/v0.10-beta-orange.svg)
 
 ## 1. (Intel MKL-DNN 2018)
 
@@ -11,7 +13,7 @@ This release contains a range of performance critical functions used in modern
 image recognition topologies including Cifar\*, AlexNet\*, VGG\*, 
 GoogleNet\* and ResNet\* optimized for wide range of Intel processors.
 
-## Install MKL Libraries
+## Declare Versions
 
 ```bash
 # Specify Installation
@@ -21,7 +23,18 @@ declare py_version="3.6"
 declare tf_version="1.3.1"
 declare tf_url="https://github.com/tensorflow/tensorflow/archive/v${tf_version}.tar.gz"
 declare basedir="/opt/intel"
+```
 
+## Install Dependencies
+
+### Bazel
+```bash
+brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/fe69832dd62821767996f10d8a4bc1a960bde899/Formula/bazel.rb
+```
+
+### MKL Libraries
+
+```bash
 # Untar into ${basedir}
 sudo command mkdir -m 1777 -p "${basedir}"
 curl -LSs "${mkl_url}" | \
