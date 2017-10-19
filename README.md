@@ -9,12 +9,12 @@ Serving the underserved
 
 ## 1. (Intel MKL-DNN 2018)
 
-| Release  | Interpreter | Optimization | OS          | Link                                                                                                                                                                                       |
-|----------|-------------|--------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1.3.0    | Python 2.7  | MKL          | High Sierra | [tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python2.7/tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl)       |
-| 1.3.0    | Python 3.6  | MKL          | High Sierra | [tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python3.6/tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl)       |
-| 1.4.0rc0 | Python 2.7  | MKL, XLA     | High Sierra | [tensorflow-1.4.0rc0-cp27-cp27m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python2.7/tensorflow-1.4.0rc0-cp27-cp27m-macosx_10_13_x86_64.whl) |
-| 1.4.0rc0 | Python 3.6  | MKL, XLA     | High Sierra | [tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python3.6/tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl) |
+| Release                                                                                                                                      | Interpreter | Optimization | OS          |
+|----------------------------------------------------------------------------------------------------------------------------------------------|-------------|--------------|-------------|--------------|
+| [1.3.0](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python2.7/tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl)       | Python 2.7  | MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX          | High Sierra |
+| [1.3.0](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python3.6/tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl)       | Python 3.6  | MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
+| [1.4.0rc0](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python2.7/tensorflow-1.4.0rc0-cp27-cp27m-macosx_10_13_x86_64.whl) | Python 2.7  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX     | High Sierra |
+| [1.4.0rc0](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python3.6/tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl) | Python 3.6  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX    | High Sierra |
 
 Intel MKL-DNN includes functionality similar to [Intel(R) Math Kernel
 Library (Intel(R) MKL) 2017](https://software.intel.com/en-us/intel-mkl), but is not
@@ -23,6 +23,8 @@ API compatible. We are investigating how to unify the APIs in future Intel MKL r
 This release contains a range of performance critical functions used in modern
 image recognition topologies including Cifar\*, AlexNet\*, VGG\*, 
 GoogleNet\* and ResNet\* optimized for wide range of Intel processors.
+
+
 
 ## Build It Yourself
 
