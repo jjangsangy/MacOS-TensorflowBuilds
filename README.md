@@ -4,14 +4,17 @@ MacOS TensorflowBuilds
 ![PyPI](https://img.shields.io/pypi/format/Django.svg)
 ![v0.10 beta](https://img.shields.io/badge/v0.10-beta-orange.svg)
 
+# Optimized Tensorflow Binaries for MacOS
+Serving the underserved
+
 ## 1. (Intel MKL-DNN 2018)
 
 | Interpreter | Optimization | OS          | Link                                                                                                                                                                                 |   |
 |-------------|--------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
-| Python 2.7  | MKL          | High Sierra | [tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/raw/master/python2.7/tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl)        |   |
-| Python 3.6  | MKL          | High Sierra | [tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/blob/master/python3.6/tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl)       |   |
-| Python 2.7  | MKL, XLA     | High Sierra | [tensorflow-1.4.0rc0-cp27-cp27m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/blob/master/python3.6/tensorflow-1.4.0rc0-cp27-cp27m-macosx_10_13_x86_64.whl) |   |
-| Python 3.6  | MKL, XLA     | High Sierra | [tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/blob/master/python3.6/tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl) |   |
+| Python 2.7  | MKL          | High Sierra | [tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python2.7/tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl)       |   |
+| Python 3.6  | MKL          | High Sierra | [tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python3.6/tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl)       |   |
+| Python 2.7  | MKL, XLA     | High Sierra | [tensorflow-1.4.0rc0-cp27-cp27m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python2.7/tensorflow-1.4.0rc0-cp27-cp27m-macosx_10_13_x86_64.whl) |   |
+| Python 3.6  | MKL, XLA     | High Sierra | [tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python3.6/tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl) |   |
 
 Intel MKL-DNN includes functionality similar to [Intel(R) Math Kernel
 Library (Intel(R) MKL) 2017](https://software.intel.com/en-us/intel-mkl), but is not
@@ -21,7 +24,7 @@ This release contains a range of performance critical functions used in modern
 image recognition topologies including Cifar\*, AlexNet\*, VGG\*, 
 GoogleNet\* and ResNet\* optimized for wide range of Intel processors.
 
-## Installation Script
+## Build It Yourself
 
 ```sh
 $ ./install.sh -h
