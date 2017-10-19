@@ -6,11 +6,12 @@ MacOS TensorflowBuilds
 
 ## 1. (Intel MKL-DNN 2018)
 
-| Interpreter | Optimization | OS          | Link                                                                                                                                                                           |   |
-|-------------|--------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
-| Python 2.7  | MKL 0.10     | High Sierra | [tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/raw/master/python2.7/tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl)  |   |
-| Python 3.6  | MKL 0.10     | High Sierra | [tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/blob/master/python3.6/tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl) |   |
-|             |              |             |                                                                                                                                                                                |   |
+| Interpreter | Optimization | OS          | Link                                                                                                                                                                                 |   |
+|-------------|--------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
+| Python 2.7  | MKL          | High Sierra | [tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/raw/master/python2.7/tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl)        |   |
+| Python 3.6  | MKL          | High Sierra | [tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/blob/master/python3.6/tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl)       |   |
+| Python 2.7  | MKL, XLA     | High Sierra | [tensorflow-1.4.0rc0-cp27-cp27m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/blob/master/python3.6/tensorflow-1.4.0rc0-cp27-cp27m-macosx_10_13_x86_64.whl) |   |
+| Python 3.6  | MKL, XLA     | High Sierra | [tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl](https://github.com/jjangsangy/MacOSTensorflow/blob/master/python3.6/tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl) |   |
 
 Intel MKL-DNN includes functionality similar to [Intel(R) Math Kernel
 Library (Intel(R) MKL) 2017](https://software.intel.com/en-us/intel-mkl), but is not
@@ -20,128 +21,23 @@ This release contains a range of performance critical functions used in modern
 image recognition topologies including Cifar\*, AlexNet\*, VGG\*, 
 GoogleNet\* and ResNet\* optimized for wide range of Intel processors.
 
-## Declare Versions
-
-```bash
-# Specify Installation
-declare mkl_version=("0.10" "2018.0.20170720")
-declare mkl_url="https://github.com/01org/mkl-dnn/releases/download/v${mkl_version[0]}/mklml_mac_${mkl_version[1]}.tgz"
-declare py_version="3.6"
-declare tf_version="1.3.1"
-declare tf_url="https://github.com/tensorflow/tensorflow/archive/v${tf_version}.tar.gz"
-declare basedir="/opt/intel"
-```
-
-## Install Dependencies
-
-### Bazel
-```bash
-brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/fe69832dd62821767996f10d8a4bc1a960bde899/Formula/bazel.rb
-```
-
-### MKL Libraries
-
-```bash
-# Untar into ${basedir}
-sudo command mkdir -m 1777 -p "${basedir}"
-curl -LSs "${mkl_url}" | \
-tar -xvzf- \
-    -C "${basedir}" \
-    -s "/_mac_${mkl_version[1]}//"
-
-# Write Shared Headers
-for lib in lib/{libmklml,libiomp5}.dylib; do
-    command ln -sfv       {${basedir}/mklml,'/usr/local'}/${lib}
-    install_name_tool -id {${basedir}/mklml,'/usr/local'}/${lib}
-done
-```
-
-## Create Work Directory
+## Installation Script
 
 ```sh
-declare tmpdir=$(mktemp -dq /tmp/$(date | md5))
+$ ./install.sh -h
 
-function cleanup () {
-    test -O ${tmpdir} && rm -rf "${tmpdir}"
-    return 0
-}
+    DESCRIPTION:
+    Installer script
 
-# Ensures Cleanup
-trap cleanup EXIT
-```
-## Setup Installation
+    USAGE:
+    ./install.sh --py ${py_version} --tf ${tf_version} --mkl ${mkl_dir}
 
-```bash
-
-function patch_configs () {
-    # Patch Configuration Script
-    sed -e 's/$OSNAME/Linux/' \
-        -e 's|"lib/libmklml_intel.so"|"lib/libmklml.dylib"|' \
-        -e 's|"lib/libiomp5.so"|"lib/libiomp5.dylib"|' \
-        -e '/libdl.so.2/ d' \
-        -i.bak configure
-    sed -e '/libdl.so.2/ d' \
-        -e 's/\.so/\.dylib/' \
-        -e 's/_intel//' \
-        -i.bak third_party/mkl/BUILD
-    sed -e 's| "-fopenmp"\,||' \
-        -i.bak tensorflow/tensorflow.bzl
-
-    # Cleanup Files
-    find . -type f -name '*.bak' -delete
-}
-
-function tf_configure () {
-    # Parameterize the rest
-    PYTHON_BIN_PATH="/usr/local/bin/python${py_version::1}" \
-    PYTHON_LIB_PATH="/usr/local/lib/python${py_version}/site-packages" \
-    MKL_INSTALL_PATH="${basedir}/mklml" CC_OPT_FLAGS='-march=native' \
-    TF_DOWNLOAD_MKL=0 TF_NEED_CUDA=0  TF_NEED_MKL=1 \
-    TF_NEED_GCP=0    TF_ENABLE_XLA=0 TF_NEED_HDFS=0 \
-    TF_NEED_OPENCL=0  TF_NEED_MPI=0   TF_NEED_VERBS=0 ./configure
-}
-
-function tf_build () {
-    # Build Package
-    bazel build -c opt \
-                --config=opt \
-                --config=mkl \
-                --copt="-DEIGEN_USE_VML" \
-                --copt=-mavx \
-                --copt=-mavx2 \
-                --copt=-mfma \
-                --copt=-msse4.1 \
-                --copt=-msse4.2 \
-                --linkopt="-Wl,-rpath,${basedir}/mklml/lib" \
-                --linkopt="-L${basedir}/mklml/lib" \
-                --linkopt="-lmklml" \
-                --linkopt="-iomp5" \
-    //tensorflow/tools/pip_package:build_pip_package || exit 1
-
-    # Build Wheel
-    bazel-bin/tensorflow/tools/pip_package/build_pip_package ${tmpdir}/pkg || exit 1
-}
-
-function tf_install () {
-    # Install
-    /usr/local/bin/python${py_version::1} -m \
-    pip install --upgrade --force-reinstall ${tmpdir}/pkg/*.whl
-}
-
-```
-# Install Script
-
-```bash
-if test -O $tmpdir && curl -LSs "$tf_url" | tar -xzf- -C "${tmpdir}"; then
-
-    builtin pushd "${tmpdir}/tensorflow-${tf_version}"
-
-    if cat configure third_party/mkl/BUILD | grep 'libmklml_intel.so'; then
-        patch_configs
-    fi
-
-    tf_configure && tf_build && tf_install
-
-    builtin popd
-fi
+    OPTIONS:
+    -h| --help: Print this help message andn exit
+    -p| --py version: [default 3.6]
+        Spcify version of python
+    -t| --tf version: [default 1.4.0rc0]
+        Specify version of tensorflow
+    -m| --mkl path: [default /opt/intel]
+        Specify mkl library path
 ```
