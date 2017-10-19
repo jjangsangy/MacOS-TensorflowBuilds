@@ -28,10 +28,15 @@ GoogleNet\* and ResNet\* optimized for wide range of Intel processors.
 ## Install
 
 
-```
+```sh
     $ TF_URL='https://github.com/jjangsangy/MacOS-TensorflowBuilds/raw/master/python3.6/tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl'
     $ pip3 installl --upgrade --force-upgrade "$TF_URL"
 ```
+
+## Optimizations
+* MKL: Intel Math Kernel Library
+* XLA: Accelerated Linear Algebra
+* MSSE4 etc.: SIMD Vectorization Extensions
 
 
 ## Build It Yourself
