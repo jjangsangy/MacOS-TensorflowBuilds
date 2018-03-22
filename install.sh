@@ -64,7 +64,7 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-source "scripts/${tf_version}.sh"
+source "scripts/${tf_version}.sh" || exit
 
 declare mkl_version=("0.10" "2018.0.20170720")
 declare mkl_url="https://github.com/01org/mkl-dnn/releases/download/v${mkl_version[0]}/mklml_mac_${mkl_version[1]}.tgz"
@@ -114,10 +114,7 @@ if test -O $tmpdir && curl -LSs "$tf_url" | tar -xzf- -C "${tmpdir}"; then
         && tf_configure \
         && tf_build
     builtin popd
-    if [ -d "${tmpdir}/pkg" ]; then
-        cp -R "${tmpdir}/pkg" .
-    fi
-    if [ "${inplace}" = 1 ]; then
-        tf_install
-    fi
+
+    [ -d "${tmpdir}/pkg" ] && cp -R "${tmpdir}/pkg" .
+    [  "${inplace}" = 1  ] && tf_install
 fi

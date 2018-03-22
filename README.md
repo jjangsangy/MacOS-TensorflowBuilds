@@ -17,6 +17,8 @@ Serving the underserved
 | [v1.4.0rc0](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.0rc0/tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl) | Python 3.6  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
 | [v1.4.0](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.0/tensorflow-1.4.0-cp27-cp27m-macosx_10_13_x86_64.whl) | Python 2.7  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
 | [v1.4.0](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.0/tensorflow-1.4.0-cp36-cp36m-macosx_10_13_x86_64.whl) | Python 3.6  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
+| [v1.4.1](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.1/tensorflow-1.4.1-cp27-cp27m-macosx_10_13_x86_64.whl) | Python 2.7  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
+| [v1.4.1](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.1/tensorflow-1.4.1-cp36-cp36m-macosx_10_13_x86_64.whl) | Python 3.6  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
 
 Intel MKL-DNN includes functionality similar to [Intel(R) Math Kernel
 Library (Intel(R) MKL) 2017](https://software.intel.com/en-us/intel-mkl), but is not
