@@ -9,20 +9,16 @@ Serving the underserved
 
 ## 1. (Intel MKL-DNN 2018)
 
-| Release                                                                                                                                      | Interpreter | Optimization                            | OS          |
-|----------------------------------------------------------------------------------------------------------------------------------------------|-------------|-----------------------------------------|-------------|
-| [v1.3.1](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/v1.3.1/tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl)       | Python 2.7  | MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX     | High Sierra |
-| [v1.3.1](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/v1.3.1/tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl)       | Python 3.6  | MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX     | High Sierra |
-| [v1.4.0rc0](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.0rc0/tensorflow-1.4.0rc0-cp27-cp27m-macosx_10_13_x86_64.whl) | Python 2.7  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
-| [v1.4.0rc0](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.0rc0/tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl) | Python 3.6  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
-| [v1.4.0](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.0/tensorflow-1.4.0-cp27-cp27m-macosx_10_13_x86_64.whl) | Python 2.7  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
-| [v1.4.0](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.0/tensorflow-1.4.0-cp36-cp36m-macosx_10_13_x86_64.whl) | Python 3.6  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
-| [v1.4.1](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.1/tensorflow-1.4.1-cp27-cp27m-macosx_10_13_x86_64.whl) | Python 2.7  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
-| [v1.4.1](https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.1/tensorflow-1.4.1-cp36-cp36m-macosx_10_13_x86_64.whl) | Python 3.6  | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
+| Version                | Release                                        | Optimization                            | OS          |
+| ---------------------- | ---------------------------------------------- | --------------------------------------- | ----------- |
+| [v1.3.1][v1.3.1]       | [2.7][py2.7 v1.3.1],    [3.6][py3.6 v1.3.1]    | MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX     | High Sierra |
+| [v1.4.0rc0][v1.4.0rc0] | [2.7][py2.7 v1.4.0rc0], [3.6][py3.6 v1.4.0rc0] | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
+| [v1.4.0][v1.4.0]       | [2.7][py2.7 v1.4.0],    [3.6][py3.6 v1.4.0]    | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
+| [v1.4.1][v1.4.1]       | [2.7][py2.7 v1.4.1],    [3.6][py3.6 v1.4.1]    | XLA MKL MSSE4.2 MSSE4.1 MFMA MAVX2 MAVX | High Sierra |
 
-Intel MKL-DNN includes functionality similar to [Intel(R) Math Kernel
-Library (Intel(R) MKL) 2017](https://software.intel.com/en-us/intel-mkl), but is not
-API compatible. We are investigating how to unify the APIs in future Intel MKL releases.
+Intel MKL-DNN includes functionality similar to 
+[Intel(R) Math Kernel Library (Intel(R) MKL) 2017](https://software.intel.com/en-us/intel-mkl), but is not API compatible.
+We are investigating how to unify the APIs in future Intel MKL releases.
 
 This release contains a range of performance critical functions used in modern
 image recognition topologies including Cifar\*, AlexNet\*, VGG\*, 
@@ -65,3 +61,17 @@ GoogleNet\* and ResNet\* optimized for wide range of Intel processors.
         -i| --inplace [default off]
             Install tensorflow inplace right after compilation
 ```
+
+[v1.3.1]: https://github.com/tensorflow/tensorflow/releases/tag/v1.3.1
+[v1.4.0rc0]: https://github.com/tensorflow/tensorflow/releases/tag/v1.4.0-rc0
+[v1.4.0]: https://github.com/tensorflow/tensorflow/releases/tag/v1.4.0
+[v1.4.1]: https://github.com/tensorflow/tensorflow/releases/tag/v1.4.1
+
+[py2.7 v1.3.1]: https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/v1.3.1/tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl
+[py3.6 v1.3.1]: https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/v1.3.1/tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl
+[py2.7 v1.4.0rc0]: https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.0rc0/tensorflow-1.4.0rc0-cp27-cp27m-macosx_10_13_x86_64.whl
+[py3.6 v1.4.0rc0]: https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.0rc0/tensorflow-1.4.0rc0-cp36-cp36m-macosx_10_13_x86_64.whl
+[py2.7 v1.4.0]: https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.0/tensorflow-1.4.0-cp27-cp27m-macosx_10_13_x86_64.whl
+[py3.6 v1.4.0]: https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.0/tensorflow-1.4.0-cp36-cp36m-macosx_10_13_x86_64.whl
+[py2.7 v1.4.1]: https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.1/tensorflow-1.4.1-cp27-cp27m-macosx_10_13_x86_64.whl
+[py3.6 v1.4.1]: https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.1/tensorflow-1.4.1-cp36-cp36m-macosx_10_13_x86_64.whl
