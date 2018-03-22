@@ -36,13 +36,15 @@ function usage() {
         Specify version of tensorflow
     ${WHI}-m| --mkl path:${END}  [default /opt/intel]
         Specify mkl library path
+    ${WHI}-i| --inplace${END} [default off]
+        Install tensorflow inplace right after compilation
 
 _EOF
 exit 1
 }
 
 trap cleanup EXIT
-declare py_version="3.6" tf_version="1.4.0-rc0" mkl_dir="/opt/intel"
+declare py_version="3.6" tf_version="1.4.0-rc0" mkl_dir="/opt/intel" inplace=0
 
 while [ $# -gt 0 ]; do
     OPTION="${1-}" VALUE="${2-}"
@@ -57,6 +59,7 @@ while [ $# -gt 0 ]; do
         --py=?*) py_version="${OPTION#*=}" ;;
         --tf=?*) tf_version="${OPTION#*=}" ;;
         --mkl=?*) mkl_dir="${OPTION#*=}" ;;
+        -i| --inplace) inplace=1
     esac
     shift
 done
@@ -97,8 +100,8 @@ function print_config () {
 
 function tf_install () {
     /usr/local/bin/python${py_version::1} -m \
-    pip install --upgrade ${tmpdir}/pkg/*.whl
-    return 0
+    pip install --upgrade "${tmpdir}/pkg/*.whl"
+    return $?
 }
 
 if test -O $tmpdir && curl -LSs "$tf_url" | tar -xzf- -C "${tmpdir}"; then
@@ -109,7 +112,12 @@ if test -O $tmpdir && curl -LSs "$tf_url" | tar -xzf- -C "${tmpdir}"; then
         && print_config \
         && patch_configs \
         && tf_configure \
-        && tf_build \
-        && tf_install
+        && tf_build
     builtin popd
+    if [ -d "${tmpdir}/pkg" ]; then
+        cp -R "${tmpdir}/pkg" .
+    fi
+    if [ "${inplace}" = 1 ]; then
+        tf_install
+    fi
 fi
