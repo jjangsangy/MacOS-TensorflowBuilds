@@ -60,4 +60,6 @@ GoogleNet\* and ResNet\* optimized for wide range of Intel processors.
             Specify version of tensorflow
         -m| --mkl path: [default /opt/intel]
             Specify mkl library path
+        -i| --inplace [default off]
+            Install tensorflow inplace right after compilation
 ```
