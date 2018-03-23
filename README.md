@@ -74,6 +74,7 @@ This release contains a range of performance critical functions used in modern i
 [v1.4.0rc0]: https://github.com/tensorflow/tensorflow/releases/tag/v1.4.0-rc0
 [v1.4.0]: https://github.com/tensorflow/tensorflow/releases/tag/v1.4.0
 [v1.4.1]: https://github.com/tensorflow/tensorflow/releases/tag/v1.4.1
+[v1.7.0rc1]: https://github.com/tensorflow/tensorflow/releases/tag/v1.7.0-rc1
 
 [py2.7 v1.3.1]: https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/v1.3.1/tensorflow-1.3.1-cp27-cp27m-macosx_10_13_x86_64.whl
 [py3.6 v1.3.1]: https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/v1.3.1/tensorflow-1.3.1-cp36-cp36m-macosx_10_13_x86_64.whl
