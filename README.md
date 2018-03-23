@@ -30,9 +30,11 @@ This release contains a range of performance critical functions used in modern i
     $ pip3 installl --upgrade --force-upgrade "$TF_URL"
 ```
 
+## Python 2 Install
+
 ```sh
     $ TF_URL='https://github.com/jjangsangy/MacOS-TensorflowBuilds/releases/download/1.4.1/tensorflow-1.4.1-cp27-cp27m-macosx_10_13_x86_64.whl'
-    $ pip3 installl --upgrade --force-upgrade "$TF_URL"
+    $ pip2 installl --upgrade --force-upgrade "$TF_URL"
 ```
 
 ## Optimizations
