@@ -18,7 +18,7 @@ Serving the underserved
 | [v1.7.0rc1][v1.7.0rc1] | [2.7][py2.7 v1.7.0rc1], [3.6][py3.6 v1.7.0rc1] | XLA MKL MSSE4.2 MAVX2 MAVX | High Sierra |
 
 
-## Note `v1.7.0` is slow
+## Note `v1.7.0rc1` is slow
 
 Intel MKL-DNN includes functionality similar to 
 [Intel(R) Math Kernel Library (Intel(R) MKL) 2017](https://software.intel.com/en-us/intel-mkl), but is not API compatible.
