@@ -20,6 +20,10 @@ Serving the underserved
 
 ## Note `v1.7.0rc1` is slow
 
+The suggested version to run currently running on MKL is `1.4.1`
+
+## Intel MKL-DNN
+
 Intel MKL-DNN includes functionality similar to 
 [Intel(R) Math Kernel Library (Intel(R) MKL) 2017](https://software.intel.com/en-us/intel-mkl), but is not API compatible.
 We are investigating how to unify the APIs in future Intel MKL releases.
