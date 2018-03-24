@@ -81,26 +81,25 @@ export TF_MKL_ROOT="${mkl_dir}/mklml"
 
 function setup() {
     # Untar into ${mkl_dir}
-    otool -D ${mkl_dir}/mklml/lib/libmklml.dylib &>/dev/null || (
+    if ! otool -D ${mkl_dir}/mklml/lib/libmklml.dylib &>/dev/null; then (
         sudo command mkdir -m 1777 -p "${mkl_dir}"
-        curl -LSs "${mkl_url}" | \
-        tar -xvzf- \
-            -C "${mkl_dir}" \
-            -s "/_mac_${mkl_version[1]}//"
-    )
+        curl -LSs "${mkl_url}" | tar -xvzf- -C "${mkl_dir}" -s "/_mac_${mkl_version[1]}//"; )
+    fi
 
-    otool -D /usr/local/lib/libmklml.dylib &>/dev/null || (
+    if ! otool -D /usr/local/lib/libmklml.dylib &>/dev/null; then (
         for lib in lib/{libmklml,libiomp5}.dylib; do
             command ln -sfv       {${mkl_dir}/mklml,'/usr/local'}/${lib}
             install_name_tool -id {${mkl_dir}/mklml,'/usr/local'}/${lib}
-        done
-    )
+        done; )
+    fi
+    return $?
 }
 
 function print_config () {
     printf "\nConfiguring:\n============\n"
     printf "\t%s %s %s\n" {,$}{tf_version,py_version,mkl_dir} | column -t
     printf "\n"
+    return $?
 }
 
 function tf_install () {
@@ -118,7 +117,7 @@ function download_tf () {
     if [ ${tf_version} = 'HEAD' ]; then
         git clone --recursive 'git@github.com:tensorflow/tensorflow.git' "${tmpdir}/tensorflow-${tf_version}"
     else
-        curl -LSs "$tf_url" | tar -xzf- -C "${tmpdir}"
+        curl -LSs "${tf_url}" | tar -xzf- -C "${tmpdir}"
     fi
     return $?
 }
