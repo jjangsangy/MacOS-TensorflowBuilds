@@ -1,24 +1,5 @@
 #!/usr/bin/env bash
 
-function setup() {
-    # Untar into ${basedir}
-    sudo command mkdir -m 1777 -p "${basedir}"
-    curl -LSs "${mkl_url}" | \
-    tar -xvzf- \
-        -C "${basedir}" \
-        -s "/_mac_${mkl_version[1]}//"
-
-    # Write Shared Headers
-    for lib in lib/{libmklml,libiomp5}.dylib; do
-        command ln -sfv       {${basedir}/mklml,'/usr/local'}/${lib}
-        install_name_tool -id {${basedir}/mklml,'/usr/local'}/${lib}
-    done
-
-    # Specify Bazel
-    brew install 'https://raw.githubusercontent.com/Homebrew/homebrew-core/fe69832dd62821767996f10d8a4bc1a960bde899/Formula/bazel.rb'
-    return 0
-}
-
 function patch_configs () {
     (
         # Patch Configuration Script
