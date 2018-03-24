@@ -14,8 +14,6 @@ function patch_configs () {
         find . -type f -name '*.bak' -delete -exec \
             printf "Modified: %s\n" '{}' \; | sed 's|.bak$||'
 
-        # curl -LsS 'https://raw.githubusercontent.com/jjangsangy/MacOS-TensorflowBuilds/master/patches/0001-fix-SetUsrMemDataHandle.patch' \
-        #    | git apply 2>/dev/null
     )
     return $?
 }
