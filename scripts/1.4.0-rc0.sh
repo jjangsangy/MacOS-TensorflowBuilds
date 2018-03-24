@@ -37,6 +37,9 @@ function patch_configs () {
     )
     return $?
 }
+# To be compatible with as wide a range of machines as possible,
+# TensorFlow defaults to only using SSE4.1 SIMD instructions on x86 machines. 
+# Most modern PCs and Macs support more advanced instructions, so if you're building a binary that you'll only be running on your own machine, you can enable these by using  in your bazel build command.
 
 function tf_configure () {
     (
@@ -56,15 +59,17 @@ function tf_configure () {
 function tf_build () {
     (
         # Build Package
-        TF_MKL_ROOT="${TF_MKL_ROOT}" bazel build -c opt \
+        TF_MKL_ROOT="${TF_MKL_ROOT}" bazel build \
+                    -c opt \
                     --config=opt \
                     --config=mkl \
-                    --copt="-DEIGEN_USE_VML" \
+                    --copt=-march=native \
                     --copt=-mavx \
                     --copt=-mavx2 \
                     --copt=-mfma \
                     --copt=-msse4.1 \
                     --copt=-msse4.2 \
+                    --copt=-msse3 \
                     --linkopt="-Wl,-rpath,${TF_MKL_ROOT}/lib" \
                     --linkopt="-L${TF_MKL_ROOT}/lib" \
                     --linkopt="-lmklml" \

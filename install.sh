@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
 declare tmpdir=$(mktemp -dq /tmp/$(date | md5))
+declare -A bazel_versions=(
+    ['0.5.4']='fe69832dd62821767996f10d8a4bc1a960bde899'
+    ['0.6.0']='b1ecbf9f05d9f788609b666a722f8eb03cde4802'
+    ['0.8.0']='8e25844a7e012611400aa61811c697611a6f09d6'
+    ['0.11.1']='885a2053e9e58655d6220e009f4de6211c235558'
+)
 
 function cleanup () {
     if test -O ${tmpdir}; then
@@ -11,7 +17,7 @@ function cleanup () {
     return
 }
 
-function usage() {
+function usage () {
 
     local -i i=1
     for C in {RED,GRE,YEL,BLU,PUR,CYA,WHI,GRY}; do
@@ -44,6 +50,7 @@ exit 1
 }
 
 trap cleanup EXIT
+
 declare py_version="3.6" tf_version="1.4.0-rc0" mkl_dir="/opt/intel" inplace=0
 
 while [ $# -gt 0 ]; do
@@ -79,8 +86,7 @@ function setup() {
         curl -LSs "${mkl_url}" | \
         tar -xvzf- \
             -C "${mkl_dir}" \
-            -s "/_mac_${mkl_version[1]}//" \
-    brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/fe69832dd62821767996f10d8a4bc1a960bde899/Formula/bazel.rb
+            -s "/_mac_${mkl_version[1]}//"
     )
 
     otool -D /usr/local/lib/libmklml.dylib &>/dev/null || (
@@ -88,7 +94,6 @@ function setup() {
             command ln -sfv       {${mkl_dir}/mklml,'/usr/local'}/${lib}
             install_name_tool -id {${mkl_dir}/mklml,'/usr/local'}/${lib}
         done
-    brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/fe69832dd62821767996f10d8a4bc1a960bde899/Formula/bazel.rb
     )
 }
 
@@ -104,7 +109,21 @@ function tf_install () {
     return $?
 }
 
-if test -O $tmpdir && curl -LSs "$tf_url" | tar -xzf- -C "${tmpdir}"; then
+function check_bazel () {
+    brew install "https://raw.githubusercontent.com/Homebrew/homebrew-core/${bazel_versions[0.5.4]}/Formula/bazel.rb"
+    return $?    
+}
+
+function download_tf () {
+    if [ ${tf_version} = 'HEAD' ]; then
+        git clone --recursive 'git@github.com:tensorflow/tensorflow.git' "${tmpdir}/tensorflow-${tf_version}"
+    else
+        curl -LSs "$tf_url" | tar -xzf- -C "${tmpdir}"
+    fi
+    return $?
+}
+
+if test -O $tmpdir && download_tf; then
 
     echo "Moving into Tensorflow Repo"
     builtin pushd "${tmpdir}/tensorflow-${tf_version}" \

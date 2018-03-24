@@ -2,18 +2,22 @@
 
 from __future__ import division, print_function, absolute_import
 
+import os
+import json
+import itertools
+
 import tensorflow as tf
+import numpy as np
 
 from tensorflow.python.client import timeline
+from keras.datasets import mnist
 
-# Import MNIST data
-from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
 
 # Training Parameters
 learning_rate = 0.001
 num_steps = 500
-batch_size = 128
+batch_size = 512
 display_step = 10
 
 # Network Parameters
@@ -110,16 +114,27 @@ init = tf.global_variables_initializer()
 
 # Start training
 with tf.Session() as sess:
+    events = []
     run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
     run_metadata = tf.RunMetadata()
 
     # Run the initializer
     sess.run(init)
 
-    batch_x, batch_y = mnist.train.next_batch(batch_size)
+    # Get batch
+    batch_x = x_train[:batch_size]
+    batch_y = y_train[:batch_size]
+
+    batch_x = batch_x.reshape(batch_x.shape[0], batch_x.shape[1] * batch_x.shape[2])
+    batch_y = sess.run(tf.one_hot(batch_y, 10))
+
     # Run optimization op (backprop)
-    sess.run(train_op, feed_dict={X: batch_x, Y: batch_y, keep_prob: dropout})
+    sess.run(train_op,
+             feed_dict={X: batch_x, Y: batch_y, keep_prob: dropout},
+             options=run_options,
+             run_metadata=run_metadata)
     tl = timeline.Timeline(run_metadata.step_stats)
     ctf = tl.generate_chrome_trace_format()
+
     with open('timeline.json', 'w') as f:
         f.write(ctf)

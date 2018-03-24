@@ -33,8 +33,8 @@ function patch_configs () {
         find . -type f -name '*.bak' -delete -exec \
             printf "Modified: %s\n" '{}' \; | sed 's|.bak$||'
 
-        curl -LsS 'https://raw.githubusercontent.com/jjangsangy/MacOS-TensorflowBuilds/master/patches/0001-fix-SetUsrMemDataHandle.patch' \
-            | git apply 2>/dev/null
+        # curl -LsS 'https://raw.githubusercontent.com/jjangsangy/MacOS-TensorflowBuilds/master/patches/0001-fix-SetUsrMemDataHandle.patch' \
+        #    | git apply 2>/dev/null
     )
     return $?
 }
@@ -42,12 +42,14 @@ function patch_configs () {
 function tf_configure () {
     (
         # Parameterize the rest
+        CC_OPT_FLAGS='-Wno-c++11-narrowing -march=native -mavx -mavx2 -mfma -msse4.1 -msse4.2 -msse3' \
         PYTHON_BIN_PATH="/usr/local/bin/python${py_version::1}" \
         PYTHON_LIB_PATH="/usr/local/lib/python${py_version}/site-packages" \
         MKL_INSTALL_PATH="${TF_MKL_ROOT}" TF_MKL_ROOT="${TF_MKL_ROOT}" \
-        TF_NEED_CUDA=0 TF_NEED_MKL=1   CC_OPT_FLAGS='-march=native' \
+        TF_NEED_CUDA=0 TF_NEED_MKL=0 TF_DOWNLOAD_CLANG=1 \
         TF_NEED_S3=1 TF_NEED_OPENCL_SYCL=0 \
-        TF_NEED_GCP=0  TF_ENABLE_XLA=1 TF_NEED_HDFS=0 \
+        TF_SET_ANDROID_WORKSPACE=0 TF_NEED_KAFKA=1 \
+        TF_NEED_GCP=1  TF_ENABLE_XLA=1 TF_NEED_HDFS=1 \
         TF_NEED_GDR=0  TF_NEED_MPI=0   TF_NEED_VERBS=0 \
         TF_NEED_OPENCL=0  TF_DOWNLOAD_MKL=0 ./configure
     )
@@ -57,18 +59,11 @@ function tf_configure () {
 
 function tf_build () {
     (
-        brew switch bazel 0.11.1
         # Build Package
-        TF_MKL_ROOT="${TF_MKL_ROOT}" bazel build -c opt \
+        TF_MKL_ROOT="${TF_MKL_ROOT}" bazel build \
+                    -c opt \
                     --config=opt \
                     --config=mkl \
-                    --copt="-DEIGEN_USE_VML" \
-                    --copt=-mavx \
-                    --copt=-mavx2 \
-                    --copt=-mfma \
-                    --copt=-msse4.1 \
-                    --copt=-msse4.2 \
-                    --copt="-Wno-c++11-narrowing" \
                     --linkopt="-Wl,-rpath,${TF_MKL_ROOT}/lib" \
                     --linkopt="-L${TF_MKL_ROOT}/lib" \
                     --linkopt="-lmklml" \
