@@ -115,7 +115,7 @@ function check_bazel () {
 
 function download_tf () {
     if [ ${tf_version} = 'HEAD' ]; then
-        git clone --recursive 'git@github.com:tensorflow/tensorflow.git' "${tmpdir}/tensorflow-${tf_version}"
+        git clone --recursive 'https://github.com/tensorflow/tensorflow.git' "${tmpdir}/tensorflow-${tf_version}"
     else
         curl -LSs "${tf_url}" | tar -xzf- -C "${tmpdir}"
     fi
