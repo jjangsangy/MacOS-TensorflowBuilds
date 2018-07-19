@@ -10,9 +10,6 @@ function patch_configs () {
         sed -e 's| "-fopenmp"\,||' \
             -i.bak tensorflow/tensorflow.bzl
 
-        curl -LsS 'https://github.com/tensorflow/tensorflow/commit/7dd78367a19e101b45f0cafb5c4fbe6a3c840828.patch' \
-            | git apply 2>/dev/null
-
         # Cleanup Files
         find . -type f -name '*.bak' -delete -exec \
             printf "Modified: %s\n" '{}' \; | sed 's|.bak$||'
